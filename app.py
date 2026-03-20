@@ -88,21 +88,16 @@ def init_session():
 
 init_session()
 
-
+# -- Read API key from Streamlit secrets or local .env ----------
+# No input field shown — keeps key secure in production
+api_key = os.getenv("OPENAI_API_KEY", "")
+if not api_key:
+    st.sidebar.error("⚠️ OpenAI API key not configured. Add it to Streamlit secrets.")
+    st.stop()
+    
 # ── Sidebar: API key + PDF upload ──────────────────────────────────────────────
 with st.sidebar:
     st.markdown("## ⚙️ Configuration")
-    st.divider()
-
-    # API Key input (falls back to .env if set)
-    api_key = st.text_input(
-        "OpenAI API Key",
-        value=os.getenv("OPENAI_API_KEY", ""),
-        type="password",
-        placeholder="sk-...",
-        help="Your key is never stored — it lives only in this session.",
-    )
-
     st.divider()
     st.markdown("## 📄 Upload PDF")
 
@@ -115,29 +110,26 @@ with st.sidebar:
     process_btn = st.button(
         "⚡ Process PDF",
         use_container_width=True,
-        disabled=not (uploaded_file and api_key),
+        disabled = not uploaded_file,
     )
 
     # ── Process the PDF when button clicked ───────────────────────────────────
     if process_btn:
-        if not api_key.startswith("sk-"):
-            st.error("Please enter a valid OpenAI API key.")
-        else:
-            with st.spinner("Reading PDF, chunking text, and building FAISS index..."):
-                try:
-                    qa_chain, chunk_count = process_pdf(uploaded_file, api_key)
+        with st.spinner("Reading PDF, chunking text, and building FAISS index..."):
+            try:
+                qa_chain, chunk_count = process_pdf(uploaded_file, api_key)
 
-                    # Store in session state so it persists across reruns
-                    st.session_state.qa_chain = qa_chain
-                    st.session_state.chunk_count = chunk_count
-                    st.session_state.pdf_name = uploaded_file.name
-                    st.session_state.pdf_processed = True
-                    st.session_state.chat_history = []  # Reset chat for new PDF
+                # Store in session state so it persists across reruns
+                st.session_state.qa_chain = qa_chain
+                st.session_state.chunk_count = chunk_count
+                st.session_state.pdf_name = uploaded_file.name
+                st.session_state.pdf_processed = True
+                st.session_state.chat_history = []  # Reset chat for new PDF
 
-                    st.success("✅ PDF processed!")
+                st.success("✅ PDF processed!")
 
-                except Exception as e:
-                    st.error(f"Error processing PDF: {e}")
+            except Exception as e:
+                st.error(f"Error processing PDF: {e}")
 
     # ── Stats panel (shown after processing) ──────────────────────────────────
     if st.session_state.pdf_processed:
