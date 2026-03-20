@@ -3,6 +3,10 @@
 A production-style Retrieval-Augmented Generation (RAG) app that lets you upload any PDF and have a conversation with its contents — powered by LangChain, FAISS, OpenAI, and Streamlit.
 
 ---
+# Open README.md and add at the top:
+
+## 🚀 Live Demo
+👉 (https://chat-with-pdf-7uetemfdtgmmsxjhzsjxsm.streamlit.app/)
 
 ## 🏗️ Architecture
 
