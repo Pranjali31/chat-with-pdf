@@ -97,8 +97,6 @@ if not api_key:
     
 # ── Sidebar: API key + PDF upload ──────────────────────────────────────────────
 with st.sidebar:
-    st.markdown("## ⚙️ Configuration")
-    st.divider()
     st.markdown("## 📄 Upload PDF")
 
     uploaded_file = st.file_uploader(
