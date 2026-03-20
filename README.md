@@ -120,10 +120,3 @@ Traditional LLMs have a fixed context window and no access to your files. RAG so
 
 ---
 
-## 🔧 Possible Extensions
-
-- **Persist the FAISS index** to disk with `vector_store.save_local()` so you don't re-embed on every restart
-- **Multi-PDF support** — process multiple files into one index
-- **Swap FAISS for Pinecone/Chroma** for a persistent, cloud-hosted vector DB
-- **Add streaming** with `StreamingStdOutCallbackHandler` for real-time responses
-- **Upgrade to GPT-4o** for better multi-step reasoning
