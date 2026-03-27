@@ -5,10 +5,10 @@ A production-style Retrieval-Augmented Generation (RAG) app that lets you upload
 ---
 # Open README.md and add at the top:
 
-## 🚀 Live Demo
+## Live Demo
 👉 (https://chat-with-pdf-7uetemfdtgmmsxjhzsjxsm.streamlit.app/)
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 PDF Upload
@@ -40,15 +40,15 @@ PDF Upload
 ┌─────────────────────────────────────────────────┐
 │  STEP 4 — Retrieve & Generate (at query time)   │
 │  User question → embed → FAISS similarity       │
-│  search → top 4 chunks retrieved               │
+│  search → top 4 chunks retrieved                │
 │  → Injected into GPT-3.5-turbo prompt           │
-│  → Answer grounded in your document            │
+│  → Answer grounded in your document             │
 └─────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Clone / download the project
 
@@ -86,7 +86,7 @@ The app opens at **http://localhost:8501**
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 chat-with-pdf/
@@ -102,7 +102,7 @@ chat-with-pdf/
 
 ---
 
-## ⚙️ Key Configuration (rag_pipeline.py)
+## Key Configuration (rag_pipeline.py)
 
 | Constant | Default | What it controls |
 |---|---|---|
@@ -114,13 +114,13 @@ chat-with-pdf/
 
 ---
 
-## 💡 How RAG Works (Plain English)
+## How RAG Works 
 
 Traditional LLMs have a fixed context window and no access to your files. RAG solves this by:
 
-1. **Pre-processing**: Your PDF is broken into chunks and each chunk is turned into a vector (a list of numbers that captures its meaning).
-2. **At query time**: Your question is also turned into a vector, and the system finds the chunks with the most similar vectors — these are the most relevant pieces of your document.
-3. **Augmented prompt**: Those chunks + your question are sent to the LLM together. The LLM answers *only from that context*, which keeps answers grounded and reduces hallucination.
+1. **Pre-processing**: PDF is broken into chunks and each chunk is turned into a vector (a list of numbers that captures its meaning).
+2. **At query time**: Question is also turned into a vector, and the system finds the chunks with the most similar vectors — these are the most relevant pieces of your document.
+3. **Augmented prompt**: Those chunks + question are sent to the LLM together. The LLM answers *only from that context*, which keeps answers grounded and reduces hallucination.
 
 ---
 
